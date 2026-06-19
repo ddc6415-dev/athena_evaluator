@@ -1,10 +1,3 @@
-This complete, refactored code block is fully compatible with the `google-generativeai` library. It uses the correct configuration pattern to resolve your previous `ImportError`.
-
-### Updated `athena_cloud_evaluator.py`
-
-Replace the entire contents of your file with this:
-
-```python
 import streamlit as st
 import docx
 import io
@@ -111,14 +104,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-```
-
-**Actions to finalize:**
-
-1. Copy the code above.
-2. In your GitHub edit window, press `Ctrl+A` then `Backspace` to clear the old code.
-3. Paste the new code.
-4. Click **Commit changes** (twice).
-
-The Streamlit app will now detect the updated imports and the standard `genai.configure` pattern.
