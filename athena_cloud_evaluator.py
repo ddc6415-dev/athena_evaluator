@@ -46,7 +46,7 @@ def main():
         st.success("Extraction complete.")
         try:
             api_key = st.secrets["GEMINI_API_KEY"]
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+            url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={api_key}"
             payload = {"contents": [{"parts": [{"text": f"Evaluate this text: {extracted_text}"}]}]}
             
             response = requests.post(url, json=payload).json()
