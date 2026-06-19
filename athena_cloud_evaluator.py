@@ -69,7 +69,7 @@ def main():
         with st.spinner("Processing evaluation..."):
             try:
                 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-                model = genai.GenerativeModel('gemini-1.0-pro')
+                model = genai.GenerativeModel('gemini-pro')
                 
                 evaluation_prompt = (
                     f"Follow the Hexaxial framework: Knowledge is information sufficiently accurate for repeated use. "
