@@ -259,8 +259,7 @@ def main():
             try:
                 # IMPORTANT: API Keys should be migrated to st.secrets in production
                client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
-                
-                evaluation_prompt = (
+               evaluation_prompt = (
                     f"You are the Author node of the Athena-1 system.\n\n"
                     f"Your analytical methodology strictly aligns with the authoritative framework defined in "
                     f"FILE ID: EDC_202600_SPK_INT01.01_CUR_Human Knowledge as Functional Certainty_V14_SHORT.\n\n"
