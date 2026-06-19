@@ -3,20 +3,10 @@ import docx
 import io
 import requests
 import re
-import json
 import time
 from bs4 import BeautifulSoup
 import google.generativeai as genai
 import youtube_transcript_api
-
-# ===============================================
-# PHASE 1: GOOGLE IAM AUTHENTICATION LAYER
-# ===============================================
-if not st.user.is_logged_in:
-    st.title("ATHENA-1: SECURE ACCESS NODE")
-    st.warning("UNAUTHORIZED ACCESS. Please authenticate via Google Identity Access Management.")
-    st.button("Log in with Google", on_click=st.login)
-    st.stop()
 
 # ===============================================
 # CORE SUBROUTINES
@@ -29,12 +19,11 @@ def robust_network_request(url, headers, timeout_val=15, retries=3, wait_time=5)
             return res
         except requests.exceptions.RequestException as e:
             if attempt < retries:
-                st.warning(f"NETWORK DELAY: Attempt {attempt}/{retries} failed. Retrying...")
                 time.sleep(wait_time)
             else:
                 raise e
 
-def write_report_to_word_bytes(report_text, extracted_text):
+def write_report_to_word_bytes(report_text):
     doc = docx.Document()
     doc.add_heading('Hexaxial Evaluation Report', 0)
     doc.add_paragraph(report_text)
@@ -44,7 +33,8 @@ def write_report_to_word_bytes(report_text, extracted_text):
     return buffer
 
 def main():
-    st.title("ATHENA-1: SECURE ACCESS NODE")
+    st.title("ATHENA-1: EVALUATION NODE")
+    
     input_method = st.radio("Select input source", ["Local File (.docx)", "Web URL"])
     extracted_text = ""
     is_ready = False
@@ -73,8 +63,6 @@ def main():
                     is_ready = True
                 except Exception as e:
                     st.error(f"File Processing Failed: {e}")
-            else:
-                st.warning("Please upload a .docx file.")
 
     if is_ready:
         st.success("Extraction complete.")
@@ -84,7 +72,6 @@ def main():
                 model = genai.GenerativeModel('gemini-1.5-flash')
                 
                 evaluation_prompt = (
-                    f"You are the Author node of the Athena-1 system. "
                     f"Follow the Hexaxial framework: Knowledge is information sufficiently accurate for repeated use. "
                     f"Task: Provide executive summary, HEXAXIAL METRIC DISTRIBUTION (Use: ████████), "
                     f"and assess the 6 axes: Repeatability, Temporal Stability, Linguistic Precision, "
@@ -97,7 +84,7 @@ def main():
                 st.subheader("AI EVALUATION STREAM OUTPUT")
                 st.write(response.text)
                 
-                doc_buffer = write_report_to_word_bytes(response.text, extracted_text)
+                doc_buffer = write_report_to_word_bytes(response.text)
                 st.download_button("Download Report", data=doc_buffer, file_name="Athena_Report.docx")
             except Exception as e:
                 st.error(f"Evaluation Failed: {e}")
