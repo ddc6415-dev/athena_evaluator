@@ -1,0 +1,27 @@
+======================================================================
+ATHENA-1 CRITERIA CONFIGURATION: THE SIX-ACTRESS EVALUATION METRIC
+======================================================================
+
+[METRIC_1: ACCURACY]
+* Definition: Assess whether the propositional data contains verifiable factual errors, structural deviations, or linguistic noise.
+* Target: Ensure high-token linguistic mapping matches grounded reality perfectly.
+
+[METRIC_2: COHESION]
+* Definition: Analyze the internal consistency, logical flow, and structural integrity of the text from beginning to end.
+* Target: Detect abrupt truncation, missing segments, or broken argumentative links.
+
+[METRIC_3: RELEVANCE]
+* Definition: Measure how directly the information addresses the core problem statement or user intent without introducing extraneous filler text.
+* Target: Eliminate low-signal prose, hype, and unanchored fluff.
+
+[METRIC_4: GRANULARITY]
+* Definition: Evaluate the level of precision, explicit detail, and technical depth present in the data substrate.
+* Target: Ensure complex operational structures are broken down into actionable, discrete elements.
+
+[METRIC_5: CLARITY]
+* Definition: Examine the visual hierarchy, formatting scannability, and linguistic accessibility of the text block.
+* Target: Guarantee instant readability suitable for administrative and analytical documentation.
+
+[METRIC_6: UTILITY]
+* Definition: Determine the immediate, repeatable human practical value of the information provided.
+* Target: Verify that the output functions effectively as accurate knowledge ready for op
