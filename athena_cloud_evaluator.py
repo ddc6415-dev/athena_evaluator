@@ -6,7 +6,9 @@ import re
 from bs4 import BeautifulSoup
 import youtube_transcript_api
 
+@st.cache_data
 def write_report_to_word_bytes(report_text):
+    """Generates and caches the .docx file for reliable downloading."""
     doc = docx.Document()
     doc.add_heading('Hexaxial Evaluation Report', 0)
     doc.add_paragraph(report_text)
@@ -44,15 +46,12 @@ def main():
                     is_ready = True
                 except Exception as e:
                     st.error(f"File Processing Failed: {e}")
-            else:
-                st.warning("Please upload a .docx file.")
 
     if is_ready:
         st.success("Extraction complete.")
         with st.spinner("Processing evaluation via gemini-3.5-flash..."):
             try:
                 api_key = st.secrets["GEMINI_API_KEY"]
-                # Using the confirmed 3.5-flash endpoint
                 url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key={api_key}"
                 
                 payload = {
@@ -74,8 +73,14 @@ def main():
                     st.subheader("AI EVALUATION STREAM OUTPUT")
                     st.write(result)
                     
+                    # Persistent buffer for download
                     doc_buffer = write_report_to_word_bytes(result)
-                    st.download_button("Download Report", data=doc_buffer, file_name="Athena_Report.docx")
+                    st.download_button(
+                        label="Download Final Report", 
+                        data=doc_buffer, 
+                        file_name="Athena_Evaluation_Report.docx",
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    )
                 else:
                     st.error(f"API Response Error: {response}")
             except Exception as e:
