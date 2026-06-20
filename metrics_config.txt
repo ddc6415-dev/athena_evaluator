@@ -24,4 +24,4 @@ ATHENA-1 CRITERIA CONFIGURATION: THE SIX-ACTRESS EVALUATION METRIC
 
 [METRIC_6: UTILITY]
 * Definition: Determine the immediate, repeatable human practical value of the information provided.
-* Target: Verify that the output functions effectively as accurate knowledge ready for op
+* Target: Verify that the output functions effectively as accurate knowledge ready for operational use.
