@@ -29,7 +29,9 @@ def main():
             try:
                 if "youtube.com" in target_url:
                     video_id = re.search(r"v=([a-zA-Z0-9_-]+)", target_url).group(1)
+                    # Correct instantiation and fetch logic
                     transcript_data = YouTubeTranscriptApi().fetch(video_id)
+                    # Correct mapping: access the object attribute via dot notation
                     extracted_text = " ".join([t.text for t in transcript_data])
                 else:
                     response = requests.get(target_url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -50,11 +52,11 @@ def main():
 
     if is_ready:
         st.success("Extraction complete.")
-        with st.spinner("Processing evaluation via Gemini Pro..."):
+        with st.spinner("Processing evaluation via Gemini 2.5 Pro..."):
             try:
                 api_key = st.secrets["GEMINI_API_KEY"]
-                # ROUTED TO VALID PRO MODEL ENDPOINT
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-002:generateContent?key={api_key}"
+                # ROUTED TO CORRECT ACTIVE PRO MODEL ENDPOINT
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key={api_key}"
                 
                 payload = {
                     "contents": [{"parts": [{"text": (
