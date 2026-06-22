@@ -29,8 +29,8 @@ def main():
             try:
                 if "youtube.com" in target_url:
                     video_id = re.search(r"v=([a-zA-Z0-9_-]+)", target_url).group(1)
-                    transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-                    transcript_data = transcript_list.find_transcript(['en']).fetch()
+                    # Correct instantiation and fetch logic
+                    transcript_data = YouTubeTranscriptApi().fetch(video_id)
                     extracted_text = " ".join([t['text'] for t in transcript_data])
                 else:
                     response = requests.get(target_url, headers={'User-Agent': 'Mozilla/5.0'})
