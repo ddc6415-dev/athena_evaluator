@@ -53,8 +53,8 @@ def main():
         with st.spinner("Processing evaluation via Gemini Pro..."):
             try:
                 api_key = st.secrets["GEMINI_API_KEY"]
-                # Upgraded payload routing to the Pro model
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key={api_key}"
+                # Corrected endpoint nomenclature for the Pro model
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key={api_key}"
                 
                 payload = {
                     "contents": [{"parts": [{"text": (
