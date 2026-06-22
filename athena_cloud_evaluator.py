@@ -31,7 +31,8 @@ def main():
                     video_id = re.search(r"v=([a-zA-Z0-9_-]+)", target_url).group(1)
                     # Correct instantiation and fetch logic
                     transcript_data = YouTubeTranscriptApi().fetch(video_id)
-                    extracted_text = " ".join([t['text'] for t in transcript_data])
+                    # Correct mapping: access the object attribute via dot notation
+                    extracted_text = " ".join([t.text for t in transcript_data])
                 else:
                     response = requests.get(target_url, headers={'User-Agent': 'Mozilla/5.0'})
                     extracted_text = BeautifulSoup(response.text, 'html.parser').get_text()
