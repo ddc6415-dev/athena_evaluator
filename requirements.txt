@@ -3,4 +3,4 @@ python-docx
 requests
 beautifulsoup4
 google-generativeai
-youtube-transcript-api<1.0.0
+youtube-transcript-api
