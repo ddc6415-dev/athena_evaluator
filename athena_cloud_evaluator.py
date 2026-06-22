@@ -4,7 +4,7 @@ import io
 import requests
 import re
 from bs4 import BeautifulSoup
-import youtube_transcript_api
+from youtube_transcript_api import YouTubeTranscriptApi
 
 @st.cache_data
 def write_report_to_word_bytes(report_text):
@@ -29,7 +29,9 @@ def main():
             try:
                 if "youtube.com" in target_url:
                     video_id = re.search(r"v=([a-zA-Z0-9_-]+)", target_url).group(1)
-                    extracted_text = " ".join([t['text'] for t in youtube_transcript_api.YouTubeTranscriptApi.get_transcript(video_id)])
+                    transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+                    transcript_data = transcript_list.find_transcript(['en']).fetch()
+                    extracted_text = " ".join([t['text'] for t in transcript_data])
                 else:
                     response = requests.get(target_url, headers={'User-Agent': 'Mozilla/5.0'})
                     extracted_text = BeautifulSoup(response.text, 'html.parser').get_text()
