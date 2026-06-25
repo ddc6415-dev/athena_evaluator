@@ -30,9 +30,9 @@ def main():
                 if "youtube.com" in target_url:
                     video_id = re.search(r"v=([a-zA-Z0-9_-]+)", target_url).group(1)
                     # Correct instantiation and fetch logic
-                    transcript_data = YouTubeTranscriptApi().fetch(video_id)
-                    # Correct mapping: access the object attribute via dot notation
-                    extracted_text = " ".join([t.text for t in transcript_data])
+                    transcript_data = YouTubeTranscriptApi().get_transcript(video_id)
+                    # Correct mapping
+                    extracted_text = " ".join([t['text'] for t in transcript_data])
                 else:
                     response = requests.get(target_url, headers={'User-Agent': 'Mozilla/5.0'})
                     extracted_text = BeautifulSoup(response.text, 'html.parser').get_text()
@@ -52,11 +52,11 @@ def main():
 
     if is_ready:
         st.success("Extraction complete.")
-        with st.spinner("Processing evaluation via Gemini 2.5 Pro..."):
+        with st.spinner("Processing evaluation via Gemini 2.5 Flash..."):
             try:
                 api_key = st.secrets["GEMINI_API_KEY"]
-                # ROUTED TO CORRECT ACTIVE PRO MODEL ENDPOINT
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key={api_key}"
+                # ROUTED TO CORRECT ACTIVE FLASH MODEL ENDPOINT
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
                 
                 payload = {
                     "contents": [{"parts": [{"text": (
