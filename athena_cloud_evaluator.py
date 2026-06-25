@@ -53,46 +53,16 @@ def main():
         with st.spinner("Processing evaluation via Gemini 2.5 Flash..."):
             try:
                 api_key = st.secrets["GEMINI_API_KEY"]
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+                url = f"[https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=](https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=){api_key}"
                 
-                # ENHANCED PROMPT FOR STRICT FORMATTING COMPLIANCE
+                # ENHANCED PROMPT FOR MONOSPACE VERTICAL ALIGNMENT
                 payload = {
                     "contents": [{"parts": [{"text": (
                         f"You are the Author node of the Athena-1 system.\n\n"
                         f"Knowledge is information sufficiently accurate for repeated use.\n\n"
                         f"TASK 1 (Categorization): At the absolute beginning of your response, output ONLY the Operational Category on the first line. Example: [LEVEL: HYPOTHESIS / SPECULATIVE INFORMATION].\n\n"
                         f"TASK 2 (Graphic Display): Immediately following the category, output the exact header '-- HEXAXIAL METRIC DISTRIBUTION --'.\n\n"
-                        f"TASK 3 (Metrics): Provide the score for all six axes using proportional Unicode blocks out of 10 (e.g., [██████░░░░]). Format exactly like the example below, with NO trailing text, explanations, or parentheses on the same line:\n"
-                        f"Repeatability: [██████░░░░]\n"
-                        f"Temporal Stability: [████████░░]\n"
-                        f"Linguistic Precision: [██████████]\n"
-                        f"Cultural Validation: [████░░░░░░]\n"
-                        f"Technological Resolution: [████████░░]\n"
-                        f"Sovereign Incentives: [██████░░░░]\n\n"
-                        f"TASK 4 (Analysis): Below the graphical metrics, provide your textual executive summary and detailed historical analysis.\n\n"
-                        f"TASK 5 (Advertising): Conclude with an [ADVERTISING_INTRUSION_LOG].\n\n"
-                        f"--- PAYLOAD ---\n{extracted_text}"
-                    )}]}]
-                }
-                
-                response = requests.post(url, json=payload).json()
-                
-                if "candidates" in response:
-                    result = response["candidates"][0]["content"]["parts"][0]["text"]
-                    st.subheader("AI EVALUATION STREAM OUTPUT")
-                    st.write(result)
-                    
-                    doc_buffer = write_report_to_word_bytes(result)
-                    st.download_button(
-                        label="Download Final Report", 
-                        data=doc_buffer, 
-                        file_name="Athena_Evaluation_Report.docx",
-                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    )
-                else:
-                    st.error(f"API Response Error: {response}")
-            except Exception as e:
-                st.error(f"Evaluation Failed: {e}")
+                        f"TASK 3 (Metrics): Provide the score for all six axes using proportional Unicode blocks out of 10 (e.g., [██████░░░░]). You MUST wrap this section in a markdown code block (
+http://googleusercontent.com/immersive_entry_chip/0
 
-if __name__ == "__main__":
-    main()
+### Next Steps
