@@ -64,5 +64,3 @@ def main():
                         f"TASK 2 (Graphic Display): Immediately following the category, output the exact header '-- HEXAXIAL METRIC DISTRIBUTION --'.\n\n"
                         f"TASK 3 (Metrics): Provide the score for all six axes using proportional Unicode blocks out of 10 (e.g., [██████░░░░]). You MUST wrap this section in a markdown code block (
 http://googleusercontent.com/immersive_entry_chip/0
-
-### Next Steps
